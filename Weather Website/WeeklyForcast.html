@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -7,12 +7,425 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
+        <style>
+            .holder{
+                width: 90%;
+                max-width: 1200px;
+                background: linear-gradient(135deg, #7960e6, #37325e);
+                color: #fff;
+                margin: 100px auto 0;
+                border-radius: 20px;
+                padding: 40px 35px;
+                text-align: center;
+            }
+            .search{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .search input{
+                border: 0;
+                outline: 0;
+                background: #ebfffc;
+                color: #555;
+                padding: 10px 25px;
+                height: 60px;
+                border-radius: 30px;
+                flex: 1;
+                margin-right: 16px;
+                font-size: 18px;
+            }
+            .search button{
+                border: 0;
+                outline: 0;
+                background: #ebfffc;
+                border-radius: 50%;
+                width: 60px;
+                height: 60px;
+                cursor: pointer;
+            }
+            .search button img{
+                width: 16px;
+
+            }
+            .navbar{
+                background: #92A8D1;
+                font-family: Arial;
+                font-size: large;
+                padding-right: 5px;
+                padding-left: 5px;
+            }
+            .TopButtons{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .button{
+                background-color: blueviolet;
+                margin-left: 1px;
+                border-radius: 15px;
+                padding: 10px;
+                width: 100px;
+                color: black;
+                font-weight: bold;
+                font-size: 15px;
+            }
+            .weeklyweather{
+                display: flex;
+            }
+            .error{
+                text-align: left;
+                margin-left: 10px;
+                font-size: 14px;
+                margin-top: 10px;
+                display: none;
+            }
+            .details{
+                display: flex;
+                justify-content: space-between;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .col{
+                flex: 1;
+                align-items: center;
+                text-align: left;
+                margin-right: 20px;
+                margin-top: 20px;
+            }
+            .background{
+                width: 100vw;
+                height: 100vh;
+                top: 0;
+                left: 0;
+                background: #fff;
+                z-index: -1;
+                position: absolute;
+                transition: 0.3s;
+            }
+            .body {
+                position: relative;
+            }
+            .col img{
+                width: 45px;
+                margin-bottom: 15px;
+            }
+            .temp-labels{
+                display: flex;
+                margin-bottom: 30px;
+            }
+            .search-container {
+                display: flex;
+                flex-direction: column;
+                list-style: none;
+            }
+            .searchresultsarray {
+                align-items: center;
+                list-style: none;
+                background: rgba(43, 32, 32, 0.233);
+                border-radius: 5px;
+            }
+            .location{
+                text-align: center;
+                font-size: 30px;
+            }
+        </style>
     </head>
     <body>
-        <p>put all buttons on top</p>
-        <p>give option to change location / auto get location</p>
-        <h1>Weekly Forecast</h1>
-        <p>show weather for 7 days with importatnt info</p>
-        <script src="" async defer></script>
+        <div class="background"></div>
+        <nav class="navbar">
+            <div class="TopButtons">
+                <div class="Logo"><img src="StormReaderlogo.png" width="120" height="120"></div>
+                    <button onclick="location.href='HomePage.html'" class="button">Daily Forcast</button>
+                    <button onclick="location.href='Settings.html'" class="button">Settings</button>
+            </div>
+        </nav>
+        <p class="location"></p>
+        <div class="holder">
+            <div class="search">
+                <input id="Weekvalue" type="text" placeholder="Enter city name" spellcheck="false">
+                <button onclick="Savecity()"><img src="images/loupe.png"></button>
+            </div>
+            <div class="search-container">
+                <ul class="searchresultsarray"></ul>
+            </div>
+            <div class="error">
+                <p>Invalid city name</p>
+            </div> 
+            <div class="weeklyweather">
+                <div class="details">
+                    <div class="col">
+                        <p class="today">Today</p> <!--add images for weather and use hmepage api call for today weather-->
+                        <img src="images/humidity.png" class="weather-icon">
+                        <div class="temp-labels">
+                            <div>max temp: </div>
+                            <div class="todaymax"></div>
+                        </div>
+                        <div class="temp-labels">
+                            <div>low Temp: </div>
+                            <div class="todaymin"></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <p class="day">day 4</p>
+                        <img src="images/humidity.png" class="weather-icon1">
+                        <div class="temp-labels">
+                            <p>max temp: </p>
+                            <p class="maxtemp"></p>
+                        </div>
+                        <div class="temp-labels">
+                            <p>low Temp: </p>
+                            <p class="lowtemp"></p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <p class="day">day 4</p>
+                        <img src="images/humidity.png" class="weather-icon1">
+                        <div class="temp-labels">
+                            <p>max temp: </p>
+                            <p class="maxtemp"></p>
+                        </div>
+                        <div class="temp-labels">
+                            <p>low Temp: </p>
+                            <p class="lowtemp"></p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <p class="day">day 4</p>
+                        <img src="images/humidity.png" class="weather-icon1">
+                        <div class="temp-labels">
+                            <p>max temp: </p>
+                            <p class="maxtemp"></p>
+                        </div>
+                        <div class="temp-labels">
+                            <p>low Temp: </p>
+                            <p class="lowtemp"></p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <p class="day">day 4</p>
+                        <img src="images/humidity.png" class="weather-icon1">
+                        <div class="temp-labels">
+                            <p>max temp: </p>
+                            <p class="maxtemp"></p>
+                        </div>
+                        <div class="temp-labels">
+                            <p>low Temp: </p>
+                            <p class="lowtemp"></p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <p class="day">day 4</p>
+                        <img src="images/humidity.png" class="weather-icon1">
+                        <div class="temp-labels">
+                            <p>max temp: </p>
+                            <p class="maxtemp"></p>
+                        </div>
+                        <div class="temp-labels">
+                            <p>low Temp: </p>
+                            <p class="lowtemp"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            const apiurlallcities = "http://api.openweathermap.org/geo/1.0/direct?&limit=10&q=";
+            const apikey = "fc002fa963b1a8f1abfb0c798d3907fa";
+            const apiurl = "https://api.openweathermap.org/data/2.5/forecast?";
+            const apiurltoday = "https://api.openweathermap.org/data/2.5/weather?";
+            const searchbox = document.querySelector(".search input");
+            const searchbutton = document.querySelector(".search button");
+            Measurements = true;
+            Unitstemp = "°F";
+            Unitsspeed = "mph";
+            MeasurementURL = "units=imperial&q="
+            
+            async function checkweeklyWeather(name){ // use for loop of 40 to look for different days
+                const city = name.split(" ");
+                let response;
+                let responsetoday;
+                if(city.length == 3){ // for double named citiies
+                    response = await fetch(apiurl + MeasurementURL + city[0] + " " + city[1] + "," + city[2] + `&appid=${apikey}`);
+                    responsetoday = await fetch(apiurltoday + MeasurementURL + city[0] + " " + city[1] + "," + city[2] + `&appid=${apikey}`);
+                }
+                else if(city.length == 2){ // for regular cities
+                    response = await fetch(apiurl + MeasurementURL + city[0] + "," + city[1] + `&appid=${apikey}`);
+                    responsetoday = await fetch(apiurltoday + MeasurementURL + city[0] + "," + city[1] + `&appid=${apikey}`);
+                }
+                else if(city.length == 1){ // just city
+                    response = await fetch(apiurl + MeasurementURL + city + `&appid=${apikey}`);
+                    responsetoday = await fetch(apiurltoday + MeasurementURL + city + `&appid=${apikey}`);
+                }
+                const weatherIcon = document.querySelector(".weather-icon");
+                const weatherIcon1 = document.querySelectorAll(".weather-icon1");
+                if(response.status == 404){
+                    document.querySelector(".error").style.display = "block";
+                    document.querySelector(".weeklyweather").style.display = "none";
+                }
+                else{
+                    var datatoday = await responsetoday.json();
+                    document.querySelector(".location").innerHTML = name;
+
+                    document.querySelector(".todaymax").innerHTML = Math.round(datatoday.main.temp_max) + Unitstemp;
+                    document.querySelector(".todaymin").innerHTML = Math.round(datatoday.main.temp_min) + Unitstemp;
+                    
+                    if(datatoday.weather[0].main == "Clouds"){
+                        weatherIcon.src = "images/cloudy.png";
+                    }
+                    else if(datatoday.weather[0].main == "Clear"){
+                        weatherIcon.src = "images/sun.png";
+                    }
+                    else if(datatoday.weather[0].main == "Rain" || datatoday.weather[0].main == "Mist" || datatoday.weather[0].main == "Drizzle"){
+                        weatherIcon.src = "images/rainy.png";
+                    }
+                    else if(datatoday.weather[0].main == "Thunderstorm"){
+                        weatherIcon.src = "images/storm.png";
+                    }
+                    else if(datatoday.weather[0].main == "Snow"){
+                        weatherIcon.src = "images/snow.png";
+                    }
+                   
+                    var data = await response.json();
+                    var counter = 0;
+                    console.log(data);
+                    for(var i = 0; i < data.list.length; i++){
+                        var checkdate = data.list[i].dt_txt;
+                        var actualdate = checkdate.substring(0, 10);
+
+                        var checknextdate = data.list[i + 1]?.dt_txt; 
+                        var nextactualdate = checknextdate ? checknextdate.substring(0, 10) : "";
+                        
+                        if(actualdate != nextactualdate && counter < document.querySelectorAll(".day").length){
+                            document.querySelectorAll(`.day`)[counter].innerHTML = ChangeDate(actualdate);
+                            //document.querySelectorAll(`.weather`)[counter].innerHTML = data.list[i].weather[0].main;
+                            document.querySelectorAll(`.maxtemp`)[counter].innerHTML = Math.round(data.list[i].main.temp_max) + Unitstemp;
+                            document.querySelectorAll(`.lowtemp`)[counter].innerHTML = Math.round(data.list[i].main.temp_min) + Unitstemp;
+                            if(data.list[i].weather[0].main == "Clouds"){
+                                weatherIcon1[counter].src = "images/cloudy.png";
+                            }
+                            else if(data.list[i].weather[0].main == "Clear"){
+                                weatherIcon1[counter].src = "images/sun.png";
+                            }
+                            else if(data.list[i].weather[0].main == "Rain" || datatoday.weather[0].main == "Mist" || datatoday.weather[0].main == "Drizzle"){
+                                weatherIcon1[counter].src = "images/rainy.png";
+                            }
+                            else if(data.list[i].weather[0].main == "Thunderstorm"){
+                                weatherIcon1[counter].src = "images/storm.png";
+                            }
+                            else if(data.list[i].weather[0].main == "Snow"){
+                                weatherIcon1[counter].src = "images/snow.png";
+                            }
+                            counter++;
+                        }
+
+                    }
+                    console.log(actualdate);
+
+                    document.querySelector(".weeklyweather").style.display = "block";
+                    document.querySelector(".error").style.display = "none";
+                }
+            }
+            function ChangeDate(dateString){
+                const [year, month, day] = dateString.split('-');
+                return `${month}-${day}-${year}`;
+            }
+
+            function Savecity(){
+                var weekinput = document.getElementById("Weekvalue");
+                var weekval = weekinput.value;
+                localStorage.setItem('Weekvalue', weekval);
+                
+            }
+
+            searchbutton.addEventListener("click", ()=>{
+                checkweeklyWeather(searchbox.value);
+            })
+
+            function selectCity(cityName) {
+                document.getElementById('Weekvalue').value = cityName; // Set the input value
+                document.querySelector('.searchresultsarray').innerHTML = ''; // Clear suggestions
+            }
+
+            // SEARCHBOXRESULTS 
+            searchbox.addEventListener('input', function() {
+                const query = this.value;
+            
+                // When empty
+                if (query == null || query.trim() === '') {
+                    return;
+                }
+            
+                console.log(query);
+            
+                const checkResults = fetch(apiurlallcities + query + `&appid=${apikey}`);
+            
+                // Use then() to handle the resolved Promise
+                checkResults
+                    .then(response => {
+                        if (response.status === 404) {
+                            checkWeather(query);
+                        } else {
+                            return response.json();
+                        }
+                    })
+                    .then(dataResults => {
+                        console.log(dataResults); // Log the data
+                        const resultsList = document.querySelector('.searchresultsarray');
+                        resultsList.innerHTML = ''; // Clear previous results
+            
+                        for (var i = 0; i < dataResults.length; i++) {
+                            const li = document.createElement('li'); // Create a new list item
+                            li.textContent = dataResults[i].name + " " + dataResults[i].state; // Set the text
+                            li.onclick = () => selectCity(li.textContent); // Attach the click event
+                            resultsList.appendChild(li); // Add the item to the results list
+                        }
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            });
+
+            window.onload = function() {
+                // Get the value from localStorage
+                var value = localStorage.getItem('myValue');
+                
+                checkweeklyWeather(value);
+
+                // Display background setting
+                var nightimecheck = localStorage.getItem('nightMode');
+                console.log("Checking nightMode");
+                console.log(nightimecheck);
+                if(nightimecheck != null){
+                    if(nightimecheck === 'true'){
+                        document.querySelector('.background').style.backgroundColor = '#242424';
+                    }
+                    else{
+                        document.querySelector('.background').style.backgroundColor = '#fff';
+                    }
+                }
+                
+                // Display measurment setting
+                var measurmentrecieved = localStorage.getItem('measurecheck');
+                console.log("Checking Imperial");
+                console.log(measurmentrecieved);
+                if(measurmentrecieved != null){
+                    if(measurmentrecieved === 'true'){
+                        Measurements = true;
+                        Unitstemp = "°F";
+                        Unitsspeed = "mph";
+                        MeasurementURL = "units=imperial&q=";
+                    }
+                    else{
+                        Measurements = false;
+                        Unitstemp = "°C";
+                        Unitsspeed = "kph";
+                        MeasurementURL = "units=metric&q=";
+                    }
+                }
+
+                // Save the city for if user doesnt search a new city
+                
+                };
+        </script>
     </body>
 </html>
